@@ -40,7 +40,8 @@ public class Advert {
 
         public Advert build() {
             this.id = new AdvertId();
-            if (this.title == null) throw new IllegalStateException("title cannot be empty");
+            if (this.title == null) throw new IllegalStateException("advert must have a title");
+            if (this.description == null) throw new IllegalStateException("advert must have a description");
             return new Advert(this);
         }
     }
