@@ -1,6 +1,7 @@
 package domain.advert.value_object;
 
 import domain.advert.exceptions.TooLargeTitleException;
+import domain.dto.TitleDTO;
 
 import java.util.Objects;
 
@@ -28,5 +29,11 @@ public class Title {
     @Override
     public int hashCode() {
         return Objects.hash(title);
+    }
+
+    public TitleDTO createDTO() {
+        TitleDTO titleDTO = new TitleDTO();
+        titleDTO.title = title;
+        return titleDTO;
     }
 }

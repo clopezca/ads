@@ -1,5 +1,7 @@
 package domain.advert.value_object;
 
+import domain.dto.DescriptionDTO;
+
 import java.util.Objects;
 
 public class Description {
@@ -25,5 +27,11 @@ public class Description {
     @Override
     public int hashCode() {
         return Objects.hash(description);
+    }
+
+    public DescriptionDTO createDTO() {
+        DescriptionDTO descriptionDTO = new DescriptionDTO();
+        descriptionDTO.description = description;
+        return descriptionDTO;
     }
 }

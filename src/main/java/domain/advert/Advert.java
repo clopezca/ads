@@ -4,6 +4,7 @@ import domain.advert.exceptions.SameTitleAndDescriptionException;
 import domain.advert.value_object.AdvertId;
 import domain.advert.value_object.Description;
 import domain.advert.value_object.Title;
+import domain.dto.AdvertDTO;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -60,6 +61,14 @@ public class Advert {
         private boolean isTitleSameAsDescription() {
             return this.title.getTitle().equals(this.description.getDescription());
         }
+    }
+
+    public AdvertDTO createDTO(){
+        AdvertDTO advertDTO = new AdvertDTO();
+        advertDTO.title = title.createDTO();
+        advertDTO.description = description.createDTO();
+        advertDTO.date = publicationDate;
+        return advertDTO;
     }
 
     @Override
