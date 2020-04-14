@@ -57,4 +57,13 @@ public class AdvertShould {
                 .date(LocalDate.of(2020,4,6))
                 .build());
     }
+
+    @Test
+    public void not_allow_building_without_a_date(){
+
+        Assertions.assertThrows(IllegalStateException.class, () -> new Advert.AdvertBuilder()
+                .title(new Title("this is a title"))
+                .description(new Description("this is a description"))
+                .build());
+    }
 }

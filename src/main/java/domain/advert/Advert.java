@@ -42,6 +42,7 @@ public class Advert {
             this.id = new AdvertId();
             if (this.title == null) throw new IllegalStateException("advert must have a title");
             if (this.description == null) throw new IllegalStateException("advert must have a description");
+            if (this.publicationDate == null) throw new IllegalStateException("advert must have a date");
             return new Advert(this);
         }
     }
