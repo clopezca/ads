@@ -4,7 +4,16 @@ import java.time.LocalDate;
 
 public class Advert {
 
-    public Advert(AdvertBuilder advertBuilder) {
+    private final AdvertId id;
+    private final Title title;
+    private final Description description;
+    private final LocalDate publicationDate;
+
+    public Advert(AdvertBuilder builder) {
+        this.id = builder.id;
+        this.title = builder.title;
+        this.description = builder.description;
+        this.publicationDate = builder.publicationDate;
     }
 
     public static class AdvertBuilder {
