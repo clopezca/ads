@@ -1,8 +1,12 @@
 package domain.advert;
 
 import domain.advert.exceptions.SameTitleAndDescriptionException;
+import domain.advert.value_object.AdvertId;
+import domain.advert.value_object.Description;
+import domain.advert.value_object.Title;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Advert {
 
@@ -16,6 +20,10 @@ public class Advert {
         this.title = builder.title;
         this.description = builder.description;
         this.publicationDate = builder.publicationDate;
+    }
+
+    public AdvertId getId() {
+        return id;
     }
 
     public static class AdvertBuilder {
@@ -52,5 +60,19 @@ public class Advert {
         private boolean isTitleSameAsDescription() {
             return this.title.getTitle().equals(this.description.getDescription());
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Advert advert = (Advert) o;
+        return Objects.equals(title, advert.title) &&
+                Objects.equals(description, advert.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, description);
     }
 }

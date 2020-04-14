@@ -1,4 +1,4 @@
-package domain.advert;
+package domain.advert.value_object;
 
 import java.util.UUID;
 

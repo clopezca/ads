@@ -1,9 +1,8 @@
 import domain.advert.Advert;
-import domain.advert.Description;
-import domain.advert.Title;
+import domain.advert.value_object.Description;
+import domain.advert.value_object.Title;
 import domain.advert.exceptions.SameTitleAndDescriptionException;
 import domain.advert.exceptions.TooLargeTitleException;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
