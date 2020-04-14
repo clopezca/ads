@@ -47,4 +47,14 @@ public class AdvertShould {
                 .date(LocalDate.of(2020,4,6))
                 .build());
     }
+
+    @Test
+    public void not_allow_building_with_an_empty_description(){
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Advert.AdvertBuilder()
+                .title(new Title("this is a title"))
+                .description(new Description(" "))
+                .date(LocalDate.of(2020,4,6))
+                .build());
+    }
 }

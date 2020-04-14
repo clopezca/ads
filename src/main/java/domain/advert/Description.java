@@ -1,7 +1,10 @@
 package domain.advert;
 
 public class Description {
-    public Description(String description) {
+    private final String description;
 
+    public Description(String description) {
+        if(description.trim().equals("")) throw new IllegalArgumentException();
+        this.description = description;
     }
 }
