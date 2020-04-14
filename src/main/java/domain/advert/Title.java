@@ -1,7 +1,12 @@
 package domain.advert;
 
-public class Title {
-    public Title(String title) {
+import domain.advert.exceptions.TooLargeTitleException;
 
+public class Title {
+    private String title;
+
+    public Title(String title) {
+        if(title.length() > 50) throw new TooLargeTitleException();
+        this.title = title;
     }
 }
