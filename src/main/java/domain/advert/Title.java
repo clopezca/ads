@@ -7,6 +7,7 @@ public class Title {
 
     public Title(String title) {
         if(title.length() > 50) throw new TooLargeTitleException();
+        if(title.trim().equals("")) throw new IllegalArgumentException();
         this.title = title;
     }
 }
