@@ -10,4 +10,8 @@ public class Title {
         if(title.trim().equals("")) throw new IllegalArgumentException();
         this.title = title;
     }
+
+    public String getTitle() {
+        return title;
+    }
 }

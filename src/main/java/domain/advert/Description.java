@@ -7,4 +7,8 @@ public class Description {
         if(description.trim().equals("")) throw new IllegalArgumentException();
         this.description = description;
     }
+
+    public String getDescription() {
+        return description;
+    }
 }

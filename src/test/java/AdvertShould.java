@@ -1,6 +1,7 @@
 import domain.advert.Advert;
 import domain.advert.Description;
 import domain.advert.Title;
+import domain.advert.exceptions.SameTitleAndDescriptionException;
 import domain.advert.exceptions.TooLargeTitleException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -64,6 +65,16 @@ public class AdvertShould {
         Assertions.assertThrows(IllegalStateException.class, () -> new Advert.AdvertBuilder()
                 .title(new Title("this is a title"))
                 .description(new Description("this is a description"))
+                .build());
+    }
+
+    @Test
+    public void not_allow_building_with_same_title_and_description(){
+
+        Assertions.assertThrows(SameTitleAndDescriptionException.class, () -> new Advert.AdvertBuilder()
+                .title(new Title("this is a titledescription"))
+                .description(new Description("this is a titledescription"))
+                .date(LocalDate.of(2020,4,6))
                 .build());
     }
 }

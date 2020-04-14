@@ -1,5 +1,7 @@
 package domain.advert;
 
+import domain.advert.exceptions.SameTitleAndDescriptionException;
+
 import java.time.LocalDate;
 
 public class Advert {
@@ -43,7 +45,12 @@ public class Advert {
             if (this.title == null) throw new IllegalStateException("advert must have a title");
             if (this.description == null) throw new IllegalStateException("advert must have a description");
             if (this.publicationDate == null) throw new IllegalStateException("advert must have a date");
+            if (isTitleSameAsDescription()) throw new SameTitleAndDescriptionException();
             return new Advert(this);
+        }
+
+        private boolean isTitleSameAsDescription() {
+            return this.title.getTitle().equals(this.description.getDescription());
         }
     }
 }
