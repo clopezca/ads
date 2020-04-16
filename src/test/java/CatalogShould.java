@@ -112,7 +112,7 @@ public class CatalogShould {
 
         for (int i = 0; i < 100; i++) {
             Advert advert = new Advert.AdvertBuilder()
-                    .title(new Title(randomString()))
+                    .title(new Title(RandomStringUtils.random(10, true, true)))
                     .description(new Description("this is a description"))
                     .date(LocalDate.of(2020,4,7))
                     .build();
@@ -120,10 +120,5 @@ public class CatalogShould {
         }
 
         Assertions.assertThrows(AdvertDoesNotExistException.class, () -> catalog1.remove(advert1.getId()));
-    }
-
-    private String randomString() {
-        int length = 10;
-        return RandomStringUtils.random(length, true, true);
     }
 }
