@@ -27,6 +27,10 @@ public class Advert {
         return id;
     }
 
+    public boolean isPublicationDateOlder(LocalDate expirationDate) {
+        return this.publicationDate.compareTo(expirationDate) < 0;
+    }
+
     public static class AdvertBuilder {
 
         private AdvertId id;
