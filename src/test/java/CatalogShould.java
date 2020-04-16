@@ -103,4 +103,27 @@ public class CatalogShould {
 
         Assert.assertEquals(expectedDTO, catalog.list());
     }
+
+    @Test
+    public void remove_eldest_advert_when_size_is_over_100(){
+
+        Catalog catalog1 = new Catalog();
+        catalog1.add(advert1.getId(), advert1);
+
+        for (int i = 0; i < 100; i++) {
+            Advert advert = new Advert.AdvertBuilder()
+                    .title(new Title(randomString()))
+                    .description(new Description("this is a description"))
+                    .date(LocalDate.of(2020,4,7))
+                    .build();
+            catalog1.add(advert.getId(), advert);
+        }
+
+        Assertions.assertThrows(AdvertDoesNotExistException.class, () -> catalog1.remove(advert1.getId()));
+    }
+
+    private String randomString() {
+        int length = 10;
+        return RandomStringUtils.random(length, true, true);
+    }
 }

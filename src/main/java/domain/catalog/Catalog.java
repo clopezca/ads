@@ -12,7 +12,13 @@ import java.util.Map;
 
 public class Catalog {
 
-    Map<AdvertId, Advert> catalog = new LinkedHashMap<>();
+    private static final int MAX = 100;
+    Map<AdvertId, Advert> catalog = new LinkedHashMap<>(){
+        protected boolean removeEldestEntry(Map.Entry<AdvertId, Advert> eldest)
+        {
+            return size() > MAX;
+        }
+    };
 
     public void add(AdvertId advertId, Advert advert) {
         for (Advert existingAdvert : catalog.values()) {
