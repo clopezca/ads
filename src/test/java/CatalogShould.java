@@ -106,9 +106,8 @@ public class CatalogShould {
 
     @Test
     public void remove_eldest_advert_when_size_is_over_100(){
-
-        Catalog catalog1 = new Catalog();
-        catalog1.add(advert1.getId(), advert1);
+        catalog = new Catalog();
+        catalog.add(advert1.getId(), advert1);
 
         for (int i = 0; i < 100; i++) {
             Advert advert = new Advert.AdvertBuilder()
@@ -116,9 +115,9 @@ public class CatalogShould {
                     .description(new Description("this is a description"))
                     .date(LocalDate.of(2020,4,7))
                     .build();
-            catalog1.add(advert.getId(), advert);
+            catalog.add(advert.getId(), advert);
         }
 
-        Assertions.assertThrows(AdvertDoesNotExistException.class, () -> catalog1.remove(advert1.getId()));
+        Assertions.assertThrows(AdvertDoesNotExistException.class, () -> catalog.remove(advert1.getId()));
     }
 }
