@@ -42,4 +42,9 @@ public class Catalog {
     public void removeByDate(LocalDate expirationDate) {
         catalog.values().removeIf(advert -> advert.isPublicationDateOlder(expirationDate));
     }
+
+    public Advert getAdvert(AdvertId advertId) {
+        if(catalog.get(advertId) == null) throw new AdvertDoesNotExistException();
+        return null;
+    }
 }

@@ -120,4 +120,11 @@ public class CatalogShould {
 
         Assertions.assertThrows(AdvertDoesNotExistException.class, () -> catalog.remove(advert1.getId()));
     }
+
+    @Test
+    public void not_allow_retrieve_an_advert_does_not_exist(){
+        catalog = new Catalog();
+
+        Assertions.assertThrows(AdvertDoesNotExistException.class, () -> catalog.getAdvert(advert1.getId()));
+    }
 }
