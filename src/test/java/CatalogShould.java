@@ -127,4 +127,12 @@ public class CatalogShould {
 
         Assertions.assertThrows(AdvertDoesNotExistException.class, () -> catalog.getAdvert(advert1.getId()));
     }
+
+    @Test
+    public void retrieve_an_advert(){
+        catalog = new Catalog();
+        catalog.add(advert1.getId(), advert1);
+
+        Assert.assertEquals(advert1, catalog.getAdvert(advert1.getId()));
+    }
 }

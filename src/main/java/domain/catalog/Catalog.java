@@ -45,6 +45,6 @@ public class Catalog {
 
     public Advert getAdvert(AdvertId advertId) {
         if(catalog.get(advertId) == null) throw new AdvertDoesNotExistException();
-        return null;
+        return catalog.get(advertId);
     }
 }
