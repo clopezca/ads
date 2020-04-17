@@ -7,6 +7,7 @@ import domain.advert.value_object.Title;
 import domain.dto.AdvertDTO;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class Advert {
@@ -29,6 +30,10 @@ public class Advert {
 
     public boolean isPublicationDateOlder(LocalDate expirationDate) {
         return this.publicationDate.compareTo(expirationDate) < 0;
+    }
+
+    public LocalDate getPublicationDate() {
+        return publicationDate;
     }
 
     public static class AdvertBuilder {

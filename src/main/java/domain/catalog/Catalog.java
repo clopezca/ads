@@ -13,18 +13,23 @@ import java.util.Map;
 public class Catalog {
 
     private static final int MAX = 100;
-    Map<AdvertId, Advert> catalog = new LinkedHashMap<>(){
-        protected boolean removeEldestEntry(Map.Entry<AdvertId, Advert> eldest)
-        {
-            return size() > MAX;
-        }
-    };
+    Map<AdvertId, Advert> catalog = new LinkedHashMap<>();
+    private RemoverStrategy strategy;
+
+    public Catalog(RemoverStrategy strategy) {
+        this.strategy = strategy;
+    }
 
     public void add(AdvertId advertId, Advert advert) {
+        if( catalog.size() == MAX) useRemoveStrategy();
         for (Advert existingAdvert : catalog.values()) {
             if (existingAdvert.equals(advert)) throw new DuplicatedAdvertException();
         }
         catalog.put(advertId, advert);
+    }
+
+    private void useRemoveStrategy() {
+        this.remove(strategy.getAdvertIdToRemove(catalog.values()));
     }
 
     public void remove(AdvertId advertId) {
