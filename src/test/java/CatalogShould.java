@@ -1,11 +1,13 @@
 import domain.advert.Advert;
 import domain.advert.exceptions.AdvertDoesNotExistException;
 import domain.advert.exceptions.DuplicatedAdvertException;
+import domain.advert.value_object.AdvertId;
 import domain.advert.value_object.Description;
 import domain.advert.value_object.Title;
 import domain.catalog.Catalog;
 import domain.catalog.EldestAdvertStrategy;
 import domain.catalog.LessVisitedAdvertStrategy;
+import domain.catalog.Visit;
 import domain.dto.AdvertDTO;
 import domain.dto.CatalogDTO;
 import org.apache.commons.lang.RandomStringUtils;
@@ -136,5 +138,16 @@ public class CatalogShould {
         catalog.add(advert1.getId(), advert1);
 
         Assert.assertEquals(advert1, catalog.getAdvert(advert1.getId()));
+    }
+
+    @Test
+    public void retrieve_quantity_of_advert_visits(){
+        Catalog visits = new Catalog(new LessVisitedAdvertStrategy());
+        Visit visit = new Visit();
+        visits.addVisit(advert1.getId(), visit);
+        visits.addVisit(advert1.getId(), visit);
+        visits.addVisit(advert1.getId(), visit);
+
+        Assert.assertEquals(3, visits.getVisits(advert1.getId()));
     }
 }

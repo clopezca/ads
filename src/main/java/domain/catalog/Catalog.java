@@ -14,6 +14,7 @@ public class Catalog {
 
     private static final int MAX = 100;
     Map<AdvertId, Advert> catalog = new LinkedHashMap<>();
+    Map<AdvertId, Visit> visits = new LinkedHashMap<>();
     private RemoverStrategy strategy;
 
     public Catalog(RemoverStrategy strategy) {
@@ -51,5 +52,15 @@ public class Catalog {
     public Advert getAdvert(AdvertId advertId) {
         if(catalog.get(advertId) == null) throw new AdvertDoesNotExistException();
         return catalog.get(advertId);
+    }
+
+    public int getVisits(AdvertId advertId) {
+        Visit advertVisits = visits.get(advertId);
+        return advertVisits.getVisits();
+    }
+
+    public void addVisit(AdvertId advertId, Visit visit) {
+        visit.addVisit();
+        visits.put(advertId, visit);
     }
 }
