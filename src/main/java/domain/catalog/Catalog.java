@@ -68,21 +68,4 @@ public class Catalog {
     public int getVisits(AdvertId advertId) {
         return visits.get(advertId);
     }
-
-    /*public Visit getVisits(AdvertId advertId) {
-        Integer advertVisits = visits.get(advertId);
-        return advertVisits.getVisits();
-    }
-
-    public void addVisit(AdvertId advertId, Visit visit) {
-        for (AdvertId existingAdvertId : visits.keySet()) {
-            if (existingAdvertId.equals(advertId)){
-                int actualVisits =  getVisits(advertId);
-                int newVisits = visit.addOneVisit(actualVisits);
-                visits.replace(advertId, newVisits);
-            }
-        }
-        visit.addVisit();
-        visits.put(advertId, visit);
-    }*/
 }
