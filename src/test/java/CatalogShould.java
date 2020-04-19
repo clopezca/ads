@@ -142,12 +142,32 @@ public class CatalogShould {
 
     @Test
     public void retrieve_quantity_of_advert_visits(){
-        Catalog visits = new Catalog(new LessVisitedAdvertStrategy());
-        Visit visit = new Visit();
-        visits.addVisit(advert1.getId(), visit);
-        visits.addVisit(advert1.getId(), visit);
-        visits.addVisit(advert1.getId(), visit);
+        Catalog visits = new Catalog(new EldestAdvertStrategy());
+        visits.addVisit(advert1.getId());
+        visits.addVisit(advert1.getId());
+        visits.addVisit(advert1.getId());
 
         Assert.assertEquals(3, visits.getVisits(advert1.getId()));
     }
+
+  /*  @Test
+    public void test(){
+        catalog = new Catalog(new LessVisitedAdvertStrategy());
+        Catalog visits = new Catalog(new LessVisitedAdvertStrategy());
+        Advert advert2 = new Advert.AdvertBuilder()
+                .title(new Title("Advert two title"))
+                .description(new Description("Advert two description"))
+                .date(LocalDate.of(2020, 4, 7))
+                .build();
+
+        catalog.add(advert1.getId(), advert1);
+        catalog.add(advert2.getId(), advert2);
+        visits.addVisit(advert1.getId(), new Visit());
+        visits.addVisit(advert1.getId(), new Visit());
+        visits.addVisit(advert1.getId(), new Visit());
+        visits.addVisit(advert2.getId(), new Visit());
+
+        Assert.assertEquals(1, visits.getVisits(advert2.getId()));
+        //Assertions.assertThrows(AdvertDoesNotExistException.class, () -> catalog.getAdvert(advert1.getId()));
+    }*/
 }
