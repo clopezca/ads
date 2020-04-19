@@ -30,7 +30,7 @@ public class Catalog {
     }
 
     private void useRemoveStrategy() {
-        this.remove(strategy.getAdvertIdToRemove(catalog.values()));
+        this.remove(strategy.getAdvertIdToRemove(catalog.values(), visits.values()));
     }
 
     public void remove(AdvertId advertId) {

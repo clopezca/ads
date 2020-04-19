@@ -7,8 +7,7 @@ import java.util.Collection;
 
 public class LessVisitedAdvertStrategy implements RemoverStrategy {
     @Override
-    public AdvertId getAdvertIdToRemove(Collection<Advert> catalogValues) {
-        // logica compareTo para obtener el menos visitado
+    public AdvertId getAdvertIdToRemove(Collection<Advert> catalogValues, Collection<Integer> visitsValues) {
         return null;
     }
 }

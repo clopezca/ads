@@ -1,13 +1,11 @@
 import domain.advert.Advert;
 import domain.advert.exceptions.AdvertDoesNotExistException;
 import domain.advert.exceptions.DuplicatedAdvertException;
-import domain.advert.value_object.AdvertId;
 import domain.advert.value_object.Description;
 import domain.advert.value_object.Title;
 import domain.catalog.Catalog;
 import domain.catalog.EldestAdvertStrategy;
 import domain.catalog.LessVisitedAdvertStrategy;
-import domain.catalog.Visit;
 import domain.dto.AdvertDTO;
 import domain.dto.CatalogDTO;
 import org.apache.commons.lang.RandomStringUtils;
@@ -142,7 +140,7 @@ public class CatalogShould {
 
     @Test
     public void retrieve_quantity_of_advert_visits(){
-        Catalog visits = new Catalog(new EldestAdvertStrategy());
+        Catalog visits = new Catalog(new LessVisitedAdvertStrategy());
         visits.addVisit(advert1.getId());
         visits.addVisit(advert1.getId());
         visits.addVisit(advert1.getId());
@@ -150,7 +148,7 @@ public class CatalogShould {
         Assert.assertEquals(3, visits.getVisits(advert1.getId()));
     }
 
-  /*  @Test
+    @Test
     public void test(){
         catalog = new Catalog(new LessVisitedAdvertStrategy());
         Catalog visits = new Catalog(new LessVisitedAdvertStrategy());
@@ -162,12 +160,12 @@ public class CatalogShould {
 
         catalog.add(advert1.getId(), advert1);
         catalog.add(advert2.getId(), advert2);
-        visits.addVisit(advert1.getId(), new Visit());
-        visits.addVisit(advert1.getId(), new Visit());
-        visits.addVisit(advert1.getId(), new Visit());
-        visits.addVisit(advert2.getId(), new Visit());
+        visits.addVisit(advert1.getId());
+        visits.addVisit(advert1.getId());
+        visits.addVisit(advert1.getId());
+        visits.addVisit(advert2.getId());
 
-        Assert.assertEquals(1, visits.getVisits(advert2.getId()));
+        Assert.assertEquals(3, visits.getVisits(advert1.getId()));
         //Assertions.assertThrows(AdvertDoesNotExistException.class, () -> catalog.getAdvert(advert1.getId()));
-    }*/
+    }
 }

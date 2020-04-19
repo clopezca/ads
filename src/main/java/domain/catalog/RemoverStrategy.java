@@ -6,5 +6,5 @@ import domain.advert.value_object.AdvertId;
 import java.util.Collection;
 
 public interface RemoverStrategy {
-    AdvertId getAdvertIdToRemove(Collection<Advert> catalogValues);
+    AdvertId getAdvertIdToRemove(Collection<Advert> catalogValues, Collection<Integer> visitsValues);
 }
