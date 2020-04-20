@@ -1,8 +1,11 @@
 package domain.catalog;
 
+import domain.advert.value_object.AdvertId;
+
 import java.util.Objects;
 
 public class Visit {
+
     private int visits;
 
     public int getVisits() {
@@ -26,7 +29,10 @@ public class Visit {
         return Objects.hash(visits);
     }
 
-    public int addOneVisit(int actualVisits) {
-        return actualVisits + 1;
+    @Override
+    public String toString() {
+        return "Visit{" +
+                "visits=" + visits +
+                '}';
     }
 }

@@ -6,6 +6,7 @@ import domain.advert.value_object.Title;
 import domain.catalog.Catalog;
 import domain.catalog.EldestAdvertStrategy;
 import domain.catalog.LessVisitedAdvertStrategy;
+import domain.catalog.Visit;
 import domain.dto.AdvertDTO;
 import domain.dto.CatalogDTO;
 import org.apache.commons.lang.RandomStringUtils;
@@ -141,31 +142,49 @@ public class CatalogShould {
     @Test
     public void retrieve_quantity_of_advert_visits(){
         Catalog visits = new Catalog(new LessVisitedAdvertStrategy());
-        visits.addVisit(advert1.getId());
-        visits.addVisit(advert1.getId());
-        visits.addVisit(advert1.getId());
+        visits.add(advert1.getId(), advert1);
+        visits.addVisit(advert1.getId(), new Visit());
+        visits.addVisit(advert1.getId(), new Visit());
+        visits.addVisit(advert1.getId(), new Visit());
+        Visit expectedVisit = new Visit();
+        expectedVisit.addVisit();
+        expectedVisit.addVisit();
+        expectedVisit.addVisit();
 
-        Assert.assertEquals(3, visits.getVisits(advert1.getId()));
+        Assert.assertEquals(expectedVisit, visits.getVisits(advert1.getId()));
     }
 
     @Test
-    public void test(){
+    public void remove_less_visited_advert_when_size_is_over_100_strategy(){
         catalog = new Catalog(new LessVisitedAdvertStrategy());
-        Catalog visits = new Catalog(new LessVisitedAdvertStrategy());
         Advert advert2 = new Advert.AdvertBuilder()
                 .title(new Title("Advert two title"))
                 .description(new Description("Advert two description"))
-                .date(LocalDate.of(2020, 4, 7))
+                .date(LocalDate.of(2020, 4, 8))
                 .build();
-
+        Advert advert3 = new Advert.AdvertBuilder()
+                .title(new Title("Advert three title"))
+                .description(new Description("Advert three description"))
+                .date(LocalDate.of(2020, 4, 8))
+                .build();
+        for (int i = 0; i < 98; i++) {
+            Advert advert = new Advert.AdvertBuilder()
+                    .title(new Title(RandomStringUtils.random(10, true, true)))
+                    .description(new Description("this is a description"))
+                    .date(LocalDate.of(2020,4,7))
+                    .build();
+            catalog.add(advert.getId(), advert);
+            catalog.addVisit(advert.getId(), new Visit());
+            catalog.addVisit(advert.getId(), new Visit());
+        }
         catalog.add(advert1.getId(), advert1);
         catalog.add(advert2.getId(), advert2);
-        visits.addVisit(advert1.getId());
-        visits.addVisit(advert1.getId());
-        visits.addVisit(advert1.getId());
-        visits.addVisit(advert2.getId());
+        catalog.addVisit(advert1.getId(), new Visit());
+        catalog.addVisit(advert1.getId(), new Visit());
+        catalog.addVisit(advert2.getId(), new Visit());
 
-        Assert.assertEquals(3, visits.getVisits(advert1.getId()));
-        //Assertions.assertThrows(AdvertDoesNotExistException.class, () -> catalog.getAdvert(advert1.getId()));
+        catalog.add(advert3.getId(), advert3);
+
+        Assertions.assertThrows(AdvertDoesNotExistException.class, () -> catalog.getAdvert(advert2.getId()));
     }
 }

@@ -14,8 +14,8 @@ public class Catalog {
 
     private static final int MAX = 100;
     Map<AdvertId, Advert> catalog = new LinkedHashMap<>();
-    Map<AdvertId, Integer> visits = new LinkedHashMap<>();
-    private RemoverStrategy strategy;
+    Map<AdvertId, Visit> visits = new LinkedHashMap<>();
+    private final RemoverStrategy strategy;
 
     public Catalog(RemoverStrategy strategy) {
         this.strategy = strategy;
@@ -27,10 +27,11 @@ public class Catalog {
             if (existingAdvert.equals(advert)) throw new DuplicatedAdvertException();
         }
         catalog.put(advertId, advert);
+        visits.put(advertId, new Visit());
     }
 
     private void useRemoveStrategy() {
-        this.remove(strategy.getAdvertIdToRemove(catalog.values(), visits.values()));
+        this.remove(strategy.getAdvertIdToRemove(this));
     }
 
     public void remove(AdvertId advertId) {
@@ -54,18 +55,11 @@ public class Catalog {
         return catalog.get(advertId);
     }
 
-    public void addVisit(AdvertId advertId) {
-        for (AdvertId existingAdvertId : visits.keySet()) {
-            if (existingAdvertId.equals(advertId)) {
-                int actualVisits = getVisits(advertId);
-                int newVisits = actualVisits + 1;
-                visits.replace(advertId, actualVisits, newVisits);
-            }
-        }
-        visits.putIfAbsent(advertId, 1);
+    public void addVisit(AdvertId advertId, Visit visit) {
+        visits.get(advertId).addVisit();
     }
 
-    public int getVisits(AdvertId advertId) {
+    public Visit getVisits(AdvertId advertId) {
         return visits.get(advertId);
     }
 }
