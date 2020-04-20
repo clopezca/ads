@@ -143,9 +143,9 @@ public class CatalogShould {
     public void retrieve_quantity_of_advert_visits(){
         Catalog visits = new Catalog(new LessVisitedAdvertStrategy());
         visits.add(advert1.getId(), advert1);
-        visits.addVisit(advert1.getId(), new Visit());
-        visits.addVisit(advert1.getId(), new Visit());
-        visits.addVisit(advert1.getId(), new Visit());
+        visits.addVisit(advert1.getId());
+        visits.addVisit(advert1.getId());
+        visits.addVisit(advert1.getId());
         Visit expectedVisit = new Visit();
         expectedVisit.addVisit();
         expectedVisit.addVisit();
@@ -174,14 +174,14 @@ public class CatalogShould {
                     .date(LocalDate.of(2020,4,7))
                     .build();
             catalog.add(advert.getId(), advert);
-            catalog.addVisit(advert.getId(), new Visit());
-            catalog.addVisit(advert.getId(), new Visit());
+            catalog.addVisit(advert.getId());
+            catalog.addVisit(advert.getId());
         }
         catalog.add(advert1.getId(), advert1);
         catalog.add(advert2.getId(), advert2);
-        catalog.addVisit(advert1.getId(), new Visit());
-        catalog.addVisit(advert1.getId(), new Visit());
-        catalog.addVisit(advert2.getId(), new Visit());
+        catalog.addVisit(advert1.getId());
+        catalog.addVisit(advert1.getId());
+        catalog.addVisit(advert2.getId());
 
         catalog.add(advert3.getId(), advert3);
 
