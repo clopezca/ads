@@ -55,7 +55,7 @@ public class Catalog {
         return catalog.get(advertId);
     }
 
-    public void addVisit(AdvertId advertId, Visit visit) {
+    public void addVisit(AdvertId advertId) {
         visits.get(advertId).addVisit();
     }
 
