@@ -13,18 +13,25 @@ import java.util.Map;
 public class Catalog {
 
     private static final int MAX = 100;
-    Map<AdvertId, Advert> catalog = new LinkedHashMap<>(){
-        protected boolean removeEldestEntry(Map.Entry<AdvertId, Advert> eldest)
-        {
-            return size() > MAX;
-        }
-    };
+    Map<AdvertId, Advert> catalog = new LinkedHashMap<>();
+    Map<AdvertId, Visit> visits = new LinkedHashMap<>();
+    private final RemoverStrategy strategy;
+
+    public Catalog(RemoverStrategy strategy) {
+        this.strategy = strategy;
+    }
 
     public void add(AdvertId advertId, Advert advert) {
+        if( catalog.size() == MAX) useRemoveStrategy();
         for (Advert existingAdvert : catalog.values()) {
             if (existingAdvert.equals(advert)) throw new DuplicatedAdvertException();
         }
         catalog.put(advertId, advert);
+        visits.put(advertId, new Visit());
+    }
+
+    private void useRemoveStrategy() {
+        this.remove(strategy.getAdvertIdToRemove(this));
     }
 
     public void remove(AdvertId advertId) {
@@ -41,5 +48,18 @@ public class Catalog {
 
     public void removeByDate(LocalDate expirationDate) {
         catalog.values().removeIf(advert -> advert.isPublicationDateOlder(expirationDate));
+    }
+
+    public Advert getAdvert(AdvertId advertId) {
+        if(catalog.get(advertId) == null) throw new AdvertDoesNotExistException();
+        return catalog.get(advertId);
+    }
+
+    public void addVisit(AdvertId advertId, Visit visit) {
+        visits.get(advertId).addVisit();
+    }
+
+    public Visit getVisits(AdvertId advertId) {
+        return visits.get(advertId);
     }
 }

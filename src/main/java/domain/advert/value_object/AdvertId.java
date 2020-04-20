@@ -24,4 +24,10 @@ public class AdvertId {
         return Objects.hash(id);
     }
 
+    @Override
+    public String toString() {
+        return "AdvertId{" +
+                "id='" + id + '\'' +
+                '}';
+    }
 }
